@@ -7,6 +7,10 @@
 sudo systemctl disable 
 sudo systemctl enable 
 
+
+// difference between firewalld and iptables:
+firewalld uses <zones and services> instead of <chain and rules> for performing the operations and it can manages rule(s) dynamically allowing updates & modification without breaking existing sessions and connections.
+
 ## Implement packet filtering ( using firewall-cmd ) 
 
 // zones are partitions that defines the trust level of network connections or interfaces 
@@ -38,197 +42,42 @@ sudo iptables -S
 ### to clear all rules 
 sudo iptables -F 
 sudo iptables --flush 
-sudo iptables F INPUT 
-
+sudo iptables -F INPUT 
 ### allow your server to listen on port 80 ( allow incoming requests on port 80 ) 
 sudo iptables -A INPUT -p tcp --dport 80 -j ACCEPT 
 ### block 
 sudo iptables -A INPUT -p tcp --dport 80 -j DROP 
 ### block your server to make outgoing connections on port 80 
 sudo iptables -A OUTPUT -p tcp --dport 80 -j DROP 
-
 ### ALlow specific IP w/ port ( Allow incoming connections from IP address 192.... on port 22 )
 sudo iptables -A INPUT -p tcp -s 192.168.102.30/24 --dport 22 -j ACCEPT 
 
 
-// difference between firewalld and iptables:
-firewalld uses <zones and services> instead of <chain and rules> for performing the operations and it can manages rule(s) dynamically allowing updates & modification without breaking existing sessions and connections.
+## statically route IP traffic 
 
-# Processes
+to add a network route between 2 networks ( 192.168.0.0/24 is a distant network address & 10.0.0.100 is IP of my machine )
 
-## Process management 
-ps aux
-  ## tree format
-  ps faux  
+$ sudo ip route add 192.168.0.0/24 via 10.0.0.100 
+$ sudo ip route add 192.168.0.0/24 via 10.11.12.100 dev enp0s3 
 
-## TO see processes + their niceness value 
-ps lax 
-  ### to set a nice value to a process
-  renice -n <val> <PID>
-  // only root can assign a negative nice value 
+to delete a route:
+$ sudo ip route del 192.168.0.0/24 via 10.0.0.100
 
-## Signals 
-  ## get PID of a process
-  pgrep -a <process>
-  ## kill by PID
-  kill -SIGHUP <PID>
-  ## kill by process name 
-  pkill -HUP bash 
 
-## backgrounding and foregrounding a process 
-  ## foregrounding 
-  fg 
-  ## backgrounding 
-  sleep 300 &
-  ## processes running in the current terminal 
-  jobs 
-  ## currently open files & directories 
-  lsof -p <pid>
-  sudo lsof <path_to_process>  // foe exp /bin/sudo 
+$ sudo ip route add default via 10.0.0.100    GATEWAY ( default route ) 
 
+network manager currently active:
+$ nmcli connection show 
 
-# Logs
+to make permanent modifications ( related to routing rules ) we use nmcli 
+$ sudo nmcli connection modify eth1 +ipv4.routes "192.168.0.0/24  172.28.128.100" 
+$ sudo nmcli device reapply eth1 
 
+to delete a permanent route:
+$ sudo nmcli connection modify eth1 -ipv4.routes "192.168.0.0/24  172.28.128.100" 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+to add an IP address
+$ sudo ip a add 10.0.0.50/24 dev eth1 
 
 
 
