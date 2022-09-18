@@ -1,60 +1,60 @@
 
 
-################## Networking ####################
+# Networking 
 
-# Networking services 
+## Networking services 
 
 sudo systemctl disable 
 sudo systemctl enable 
 
-# Implement packet filtering ( using firewall-cmd ) 
+## Implement packet filtering ( using firewall-cmd ) 
 
 // zones are partitions that defines the trust level of network connections or interfaces 
-## about zones
+### about zones
 sudo firewall-cmd --get-default-zone
 sudo firewall-cmd --get-active-zones 
-  ### set default zone 
+  -  set default zone: 
   sudo firewall-cmd --set-default-zone=<public>
-## to list current firewall rules 
+### to list current firewall rules 
 sudo firewall-cmd --list-all 
 sudo firewall-cmd --info-service=<service>
-## to add a firewall rule ( svc or a port )
+### to add a firewall rule ( svc or a port )
 sudo firewall-cmd --add-service=http
 sudo firewall-cmd --add-port=80/tcp 
 sudo firewall-cmd --add-source=<IP> --zone=trusted 
-## to remove a firewall rule 
+### to remove a firewall rule 
 sudo firewall-cmd --remove-service=<service>
-  ### to make a rule permanent
+  - to make a rule permanent
   sudo firewall-cmd --runtime-to-permanent 
   sudo firewall-cmd --add-port=<port>/tcp --permanent 
 
 
-# Implement packet filtering ( using iptables ) 
+## Implement packet filtering ( using iptables ) 
 
-## get all iptables rules ( 3 chains : INPUT, FORWARD, OUTPUT )
+### get all iptables rules ( 3 chains : INPUT, FORWARD, OUTPUT )
 sudo iptables -L 
-## to check status of the diff rule chains
+### to check status of the diff rule chains
 sudo iptables -S 
-## to clear all rules 
+### to clear all rules 
 sudo iptables -F 
 sudo iptables --flush 
 sudo iptables F INPUT 
 
-## allow your server to listen on port 80 ( allow incoming requests on port 80 ) 
+### allow your server to listen on port 80 ( allow incoming requests on port 80 ) 
 sudo iptables -A INPUT -p tcp --dport 80 -j ACCEPT 
-## block 
+### block 
 sudo iptables -A INPUT -p tcp --dport 80 -j DROP 
-## block your server to make outgoing connections on port 80 
+### block your server to make outgoing connections on port 80 
 sudo iptables -A OUTPUT -p tcp --dport 80 -j DROP 
 
-## ALlow specific IP w/ port ( Allow incoming connections from IP address 192.... on port 22 )
+### ALlow specific IP w/ port ( Allow incoming connections from IP address 192.... on port 22 )
 sudo iptables -A INPUT -p tcp -s 192.168.102.30/24 --dport 22 -j ACCEPT 
 
 
 // difference between firewalld and iptables:
 firewalld uses <zones and services> instead of <chain and rules> for performing the operations and it can manages rule(s) dynamically allowing updates & modification without breaking existing sessions and connections.
 
-################# Processes ####################
+# Processes
 
 ## Process management 
 ps aux
@@ -63,7 +63,7 @@ ps aux
 
 ## TO see processes + their niceness value 
 ps lax 
-  ## to set a nice value to a process
+  ### to set a nice value to a process
   renice -n <val> <PID>
   // only root can assign a negative nice value 
 
@@ -87,7 +87,7 @@ ps lax
   sudo lsof <path_to_process>  // foe exp /bin/sudo 
 
 
-################### LOgs ########################
+# Logs
 
 
 
