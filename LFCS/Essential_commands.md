@@ -11,7 +11,7 @@ telnet ( not secure )
 # hard links & soft links:
 
 ## Hard links 
-$ stat <file> 
+<pre> $ stat <file> </pre> 
 => this command shows us the inode number ( used to keep track of metadata : permissions, when the data was last modified … )
 => it also shows ‘links’ nb ( for exp if a file has 3 links, then this param value is 3 ) 
 
@@ -21,7 +21,7 @@ use case of hard links:
 suppose we have a directory that has 40GB of data, this directory is initially under /home/aaron/Pictures/ .. we want to move it to /home/jane/Pictures. 
 If we simply copy it , we would have 40GB twice which is a lot 
 so instead, we can just create a hard link of the directory :
-$ ln  /home/aaro/Pictures/<filename>   /home/jane/Pictures/<filename>  
+<pre> $ ln  /home/aaro/Pictures/<filename>   /home/jane/Pictures/<filename> </pre>  
 by creating a hard link, the 2 directories point to the same inode nb and the ‘link’ directory has 0 size ( it just points to the original directory ) 
 
 If we delete the original file, the hard link remains intact 
@@ -29,7 +29,7 @@ we can only hard link FILES , also hard links to files must be on the same files
 
 ## Soft links 
 they’re mainly used for creating shortcuts 
-$ ln -s 
+<pre> $ ln -s </pre>
 
 # SUID, SGID and sticky bit 
 
