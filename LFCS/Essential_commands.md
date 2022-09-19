@@ -71,35 +71,36 @@ $ find -perm /664   ( shows files that have any of the permissions, 600, 764 .. 
 we specify nb of hrs as argument 
 
 we can specify 2 params:
-$ find -name “f*” -size 512k       ( AND operator ) 
+<pre> $ find -name “f*” -size 512k       ( AND operator ) 
 $ find -name “f*” -o -size 512k   ( -o : OR operator ) 
 $ find -not -name “f*” 
 
 $ find /user/share/ -name ‘*.jpg’ 
 $ find /lib64/ -size +10M
 $ find /dev/ -mmin -1  ( find files modified in the last 1 minute ) 
-
+</pre>
 
 # Manipulate content of file:
 
 if u wanna see only last 20 lines of the file:
-$ tail -n 20 /<path to file>
-
+<pre> $ tail -n 20 /<path to file>
+</pre>
 if u wanna see first 20 lines of file:
-$ head -n 20 /<path to file> 
-
+<pre> $ head -n 20 /<path to file> 
+</pre>
 search and replace all occurrences of ‘canda’ with ‘canada’ :
-$ sed ‘s/canda/canada/g’   file.txt 
+<pre> $ sed ‘s/canda/canada/g’   file.txt 
 
 $ sed -i ‘s/canda/canada/g’ -i file.txt   ( change directly in place - in the file - ) 
+</pre>
 
 extract the first column of the file 
-$ cut -d ‘  ‘  -f  1 file.txt    (-d : delimiter   |    -f  : field   <column nb> ) 
-
+<pre> $ cut -d ‘  ‘  -f  1 file.txt    (-d : delimiter   |    -f  : field   <column nb> ) 
+</pre>
  to see differences between files 
-$ diff -c file1 file2 
+<pre> $ diff -c file1 file2 
 $ sdiff file1 file2   ( side by side comparaison ) 
-
+</pre>
 
 
 
