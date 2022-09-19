@@ -1,10 +1,10 @@
 # CRON:
 to check syntax to use for cron jobs: $cat /etc/crontab 
 
-* * means match all possible values ( i.e every hour ) 
-* , means match multiple values ( i.e 15,45 ) 
-* - means range of values ( 2-4 ) [ run the job at 2am, 3am and 4am ]
-* / means specifies staps ( i.e */4 ) [ run the job every 4 hours ]
+* " * " means match all possible values ( i.e every hour ) 
+* " , " means match multiple values ( i.e 15,45 ) 
+* " - " means range of values ( 2-4 ) [ run the job at 2am, 3am and 4am ]
+* " / " means specifies staps ( i.e */4 ) [ run the job every 4 hours ]
 
 35 6 * * * /<full path to a command> 
 
