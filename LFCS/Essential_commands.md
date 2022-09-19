@@ -83,7 +83,12 @@ $ find -perm /664   ( shows files that have any of the permissions, 600, 764 .. 
 * mmin ( modified minute ) 
 * mtim ( modified time - 24-hr period ) 
 we specify nb of hrs as argument 
-
+* exec 
+<pre>
+$ find -name “f*” -size 512k       ( AND operator ) 
+$ find -name “f*” -o -size 512k   ( -o : OR operator ) 
+$ find -not -name “f*” 
+</pre>
 we can specify 2 params:
 <pre> 
 $ find -name “f*” -size 512k       ( AND operator ) 
