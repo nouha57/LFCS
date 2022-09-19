@@ -23,11 +23,13 @@ $ sudo rm /etc/cron.hourly/shellscript
 
 # ANACRON
 syntax:
+<pre>
 #period_in_days   #delay_in_mins  #job_identifier   #command 
 
 @weekly             <nb>            test_job          /<absolute_path_to_the_command> 
 <nb>                                cron.daily            
 @monthly 
+</pre>
 
 # AT 
 at 15:00 /<full path to cmd> 
