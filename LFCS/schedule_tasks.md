@@ -42,7 +42,9 @@ $ sudo anacron -n -f
 $ atq 
 
 Using root user, schedule below given command to run at 15:30 August 20 2024 by using at utility:
+  
 $ at '15:30 August 20 2024' /usr/bin/touch atscheduler 
+
 then press ctrl+D 
 
 ### to add a cron for root user:
