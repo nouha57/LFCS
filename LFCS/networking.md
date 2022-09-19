@@ -3,10 +3,10 @@
 # Networking 
 
 ## Networking services 
-
+<pre>
 sudo systemctl disable 
 sudo systemctl enable 
-
+</pre>
 
 // difference between firewalld and iptables:
 firewalld uses <zones and services> instead of <chain and rules> for performing the operations and it can manages rule(s) dynamically allowing updates & modification without breaking existing sessions and connections.
@@ -15,19 +15,25 @@ firewalld uses <zones and services> instead of <chain and rules> for performing 
 
 // zones are partitions that defines the trust level of network connections or interfaces 
 ### about zones
+<pre>
 sudo firewall-cmd --get-default-zone
-sudo firewall-cmd --get-active-zones 
+sudo firewall-cmd --get-active-zones
+</pre>
   -  set default zone: 
   sudo firewall-cmd --set-default-zone=<public>
 ### to list current firewall rules 
+<pre>
 sudo firewall-cmd --list-all 
 sudo firewall-cmd --info-service=<service>
+</pre>
 ### to add a firewall rule ( svc or a port )
+<pre>
 sudo firewall-cmd --add-service=http
 sudo firewall-cmd --add-port=80/tcp 
 sudo firewall-cmd --add-source=<IP> --zone=trusted 
+</pre>
 ### to remove a firewall rule 
-sudo firewall-cmd --remove-service=<service>
+<pre> sudo firewall-cmd --remove-service=<service> </pre>
   - to make a rule permanent
   sudo firewall-cmd --runtime-to-permanent 
   sudo firewall-cmd --add-port=<port>/tcp --permanent 
@@ -56,29 +62,34 @@ sudo iptables -A INPUT -p tcp -s 192.168.102.30/24 --dport 22 -j ACCEPT
 ## statically route IP traffic 
 
 to add a network route between 2 networks ( 192.168.0.0/24 is a distant network address & 10.0.0.100 is IP of my machine )
-
+<pre>
 $ sudo ip route add 192.168.0.0/24 via 10.0.0.100 
 $ sudo ip route add 192.168.0.0/24 via 10.11.12.100 dev enp0s3 
-
+</pre>
 to delete a route:
+<pre>
 $ sudo ip route del 192.168.0.0/24 via 10.0.0.100
 
 
 $ sudo ip route add default via 10.0.0.100    GATEWAY ( default route ) 
-
+</pre>
 network manager currently active:
+<pre>
 $ nmcli connection show 
-
+</pre>
 to make permanent modifications ( related to routing rules ) we use nmcli 
+<pre>
 $ sudo nmcli connection modify eth1 +ipv4.routes "192.168.0.0/24  172.28.128.100" 
 $ sudo nmcli device reapply eth1 
-
+</pre>
 to delete a permanent route:
+<pre>
 $ sudo nmcli connection modify eth1 -ipv4.routes "192.168.0.0/24  172.28.128.100" 
-
+</pre>
 to add an IP address
+<pre>
 $ sudo ip a add 10.0.0.50/24 dev eth1 
-
+</pre>
 
 
 
