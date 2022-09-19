@@ -85,9 +85,8 @@ $ find -perm /664   ( shows files that have any of the permissions, 600, 764 .. 
 we specify nb of hrs as argument 
 * exec 
 <pre>
-$ find -name “f*” -size 512k       ( AND operator ) 
-$ find -name “f*” -o -size 512k   ( -o : OR operator ) 
-$ find -not -name “f*” 
+$ find <file> -exec chown <user-owner>:<gp-owner>  {}  +   
+$ find -type d -exec chmod 775 {} + 
 </pre>
 we can specify 2 params:
 <pre> 
