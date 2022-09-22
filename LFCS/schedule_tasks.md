@@ -37,7 +37,7 @@ syntax:
 @weekly             <nb>            test_job          /<absolute_path_to_the_command> 
 <nb>                                cron.daily            
 @monthly 
-
+________________________________________________________________________________________
 for example: 
 1                      10         <job_identifier>         /script.sh 
 
