@@ -73,6 +73,8 @@ $ sudo ip route del 192.168.0.0/24 via 10.0.0.100
 
 $ sudo ip route add default via 10.0.0.100    GATEWAY ( default route ) 
 </pre>
+
+### Network manager ( nmcli ) 
 network manager currently active:
 <pre>
 $ nmcli connection show 
