@@ -2,6 +2,27 @@
 
 # Networking 
 
+## Interface configuration 
+
+we can configure them manually by modifying the NW config files :
+Ubuntu => /etc/netplan 
+RedHat => /etc/sysconfig/network-scripts : it contains files named after the interfaces' names ( ifcfg-ens01 )
+
+<pre>
+BOOTPROTO=none 
+DEVICE=ens5
+DHCPV6C=yes 
+IPADDR = 10.9.8.7 
+GATEWAY = 10.9.8.1
+</pre>
+
+After configuring the interfaces, we do :
+<pre>
+sudo ip link set ens5 down 
+sudo ip link set ens5 up 
+</pre>
+
+
 ## Networking services 
 <pre>
 sudo systemctl disable 
@@ -9,34 +30,34 @@ sudo systemctl enable
 </pre>
 
 // difference between firewalld and iptables:
-firewalld uses <zones and services> instead of <chain and rules> for performing the operations and it can manages rule(s) dynamically allowing updates & modification without breaking existing sessions and connections.
+firewalld uses "zones and services" instead of "chain and rules" for performing the operations and it can manages rule(s) dynamically allowing updates & modification without breaking existing sessions and connections.
 
 ## Implement packet filtering ( using firewall-cmd ) 
 
-// zones are partitions that defines the trust level of network connections or interfaces 
+// zones are partitions that define the trust level of network connections or interfaces 
 ### about zones
 <pre>
 sudo firewall-cmd --get-default-zone
 sudo firewall-cmd --get-active-zones
 </pre>
   -  set default zone: 
-  sudo firewall-cmd --set-default-zone=<public>
+  sudo firewall-cmd --set-default-zone=public
 ### to list current firewall rules 
 <pre>
 sudo firewall-cmd --list-all 
-sudo firewall-cmd --info-service=<service>
+sudo firewall-cmd --info-service=service
 </pre>
 ### to add a firewall rule ( svc or a port )
 <pre>
 sudo firewall-cmd --add-service=http
 sudo firewall-cmd --add-port=80/tcp 
-sudo firewall-cmd --add-source=<IP> --zone=trusted 
+sudo firewall-cmd --add-source=IP --zone=trusted 
 </pre>
 ### to remove a firewall rule 
 <pre> sudo firewall-cmd --remove-service=<service> </pre>
   - to make a rule permanent
   sudo firewall-cmd --runtime-to-permanent 
-  sudo firewall-cmd --add-port=<port>/tcp --permanent 
+  sudo firewall-cmd --add-port=80/tcp --permanent 
 
 
 ## Implement packet filtering ( using iptables ) 
@@ -75,6 +96,7 @@ $ sudo ip route add default via 10.0.0.100    GATEWAY ( default route )
 </pre>
 
 ### Network manager ( nmcli ) 
+it's a tool used to manage everything related to networking 
 network manager currently active:
 <pre>
 $ nmcli connection show 
@@ -88,6 +110,7 @@ to delete a permanent route:
 <pre>
 $ sudo nmcli connection modify eth1 -ipv4.routes "192.168.0.0/24  172.28.128.100" 
 </pre>
+
 to add an IP address
 <pre>
 $ sudo ip a add 10.0.0.50/24 dev eth1 
