@@ -84,10 +84,22 @@ $ atq
 </pre>
 
 Using root user, schedule below given command to run at 15:30 August 20 2024 by using at utility:
-  
-$ at '15:30 August 20 2024' /usr/bin/touch atscheduler 
+<pre> 
+at '15:30 August 20 2024' /usr/bin/touch atscheduler 
+</pre>
 
 then press ctrl+D 
 
 ### to add a cron for root user:
-$ crontab -e 
+<pre>
+crontab -e 
+</pre>
+
+## Notes about crontab file:
+There are 2 methods of writing cron jobs:
+* we can either write cron jobs inside /etc/cron.d directory by creating a new file and writing the command in it or by writing directly inside the /etc/crontab file 
+* writing directly into /etc/crontab file is not recommended because this file is likely to be overwritten during system upgrades and my commands will be lost 
+
+purpose of crontab:  executing the scripts within /cron.*  directories 
+each user has its own crontab file to play with ( different from the one /etc/crontab ‘ system-wide crontab ‘ ) => to see and edit it, run: $ crontab -e 
+
