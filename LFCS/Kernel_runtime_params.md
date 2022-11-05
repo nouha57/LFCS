@@ -33,3 +33,16 @@ restorecon -vR /var/www/html
 </pre>
 
 when we want to preserve security context, we add --preserve=context 
+
+# Sysctl 
+
+to see kernel runtime parametes 
+<pre>
+sudo sysctl -a 
+</pre>
+
+to disable a kernel runtime parameter 
+<pre>
+sudo sysctl -w net.ipv6.conf.default.disable_ipv6 = 1 
+
+</pre>
