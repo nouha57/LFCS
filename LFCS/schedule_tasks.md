@@ -1,6 +1,14 @@
+If we wanna schedule tasks to run at specific time in our linux system we can use :
+* Cron : to schedule a job at a specific time ( for exp, every friday at 2 pm )  
+* Anacron : to run at a specified time *after system boot* 
+* At : to schedule a job only once
+
+
 # CRON:
 to check syntax to use for cron jobs: $cat /etc/crontab 
-
+<pre>
+ min  hr  day_of_month  month  day_of_week  TASK
+</pre>
 * " * " means match all possible values ( i.e every hour ) 
 * " , " means match multiple values ( i.e 15,45 ) 
 * " - " means range of values ( 2-4 ) [ run the job at 2am, 3am and 4am ]
@@ -9,20 +17,21 @@ to check syntax to use for cron jobs: $cat /etc/crontab
 35 6 * * * /<full path to a command> 
 
 ### to edit a cron table of a user:
-$ sudo crontab -e -u nouha 
+<pre>
+sudo crontab -e -u nouha 
+</pre>
 
-daily = /etc/cron.daily/
-  
+daily = /etc/cron.daily/  
 hourly = /etc/cron.hourly/ 
 
 ### to add a job:
  <pre>
-$ sudo cp shellscript /etc/cron.hourly 
-$ sudo chmod +rx /etc/cron.hourly/shellscript 
+sudo cp shellscript /etc/cron.hourly 
+sudo chmod +rx /etc/cron.hourly/shellscript 
 </pre>
 ### to remove it:
 <pre>
-$ sudo rm /etc/cron.hourly/shellscript 
+sudo rm /etc/cron.hourly/shellscript 
 </pre>
   
 # ANACRON
@@ -46,10 +55,23 @@ for example:
 </pre>
 
 # AT 
+used to execute jobs/tasks only once 
 <pre>
 at 15:00 /<full path to cmd> 
 at  'August 20 2022' 
 at   'now + 30 minutes' 
+
+# to see the pending jobs 
+at -l 
+sudo atq  # to see pending jobs for all users 
+
+# to remove a scheduled job
+atrm 'nb of the job'   # we use $atq to identify the nb of the job 
+
+# to restrict users who can use at command, we edit these 2 files 
+/etc/at.deny 
+/etc/at.allow 
+
 </pre>
 
 ### to force anacron to run all jobs:
