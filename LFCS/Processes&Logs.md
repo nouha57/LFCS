@@ -44,7 +44,35 @@ lsof -p pid
 lsof "path_to_process"  // foe exp /bin/sudo 
 </pre>
 
-# Logs
+# Analyzing system log files 
+
+Logging daemons collect, store and organize log files 
+
+<pre>
+ls /var/log/
+grep -r 'ssh' /var/log/
+less /var/log/secure   # logs related to secure authentication and authorization ( who gets root permissions , what app requested  privileges ... ) 
+</pre>
+
+to check logs in realtime 
+<pre>
+tail -F /var/log/secure 
+</pre>
+
+Journalctl : used to navigate easier through the logs 
+<pre>
+journalctl 'absolute path of the command' 
+journalctl -u sshd.service  # by service name 
+
+# filter by type of log message ( info ,warning, err, crit ) 
+journalctl -p err 
+journalctl -p info -g '^b' 
+
+# filter by time of the log message 
+journalctl -S 02:00 
+journalctl -S 01:00 -U 04:00 
+</pre>
+
 
 
 
